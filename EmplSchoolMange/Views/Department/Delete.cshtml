@@ -1,0 +1,26 @@
+﻿@model EmplSchoolMange.Models.DepartmentVM
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete Department</h2>
+
+
+<form asp-controller="Department" asp-action="Delete" method="post" class="form-group">
+
+    <label asp-for="DepartmentName">Department Name</label>
+    <input type="text" asp-for="DepartmentName" disabled class="form-control" />
+
+    <br />
+
+    <label asp-for="DepartmentCode">Department Code</label>
+    <input type="text" asp-for="DepartmentCode" disabled class="form-control" />
+
+
+    <br />
+
+    <center>
+        <input type="submit" value="Delete" class="btn btn-primary" />
+    </center>
+
+</form>

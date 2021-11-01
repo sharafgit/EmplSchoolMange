@@ -1,0 +1,40 @@
+﻿@model IQueryable<EmplSchoolMange.Models.EmployeeVM>
+@{
+    ViewBag.Title = "Employee";
+}
+
+<h2>Welcome to Employee</h2>
+
+<a asp-controller="Employee" asp-action="Create" class="btn btn-primary">Add Employee</a>
+<br />
+<table class="table table-striped table-bordered text-center">
+    <tr>
+        <th class="text-center">Name</th>
+        <th class="text-center">Salary</th>
+        <th class="text-center">Address</th>
+        <th class="text-center">Hir Date</th>
+        <th class="text-center">Email</th>
+        <th class="text-center">Is Active</th>
+        <th class="text-center">Notes</th>
+        <th class="text-center">Department</th>
+        <th class="text-center">Edite</th>
+        <th class="text-center">Delete</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>@item.Name</td>
+    <td>@item.Salary</td>
+    <td>@item.Address</td>
+    <td>@item.HirDate</td>
+    <td>@item.Email</td>
+    <td>@item.IsActive</td>
+    <td>@item.Notes</td>
+    <td>@item.DepartmentId</td>
+
+    <td><a asp-controller="Employee" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a></td>
+    <td><a asp-controller="Employee" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>
+</tr>
+    }
+
+</table>
