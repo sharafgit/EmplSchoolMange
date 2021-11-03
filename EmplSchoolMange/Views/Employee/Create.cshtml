@@ -1,8 +1,9 @@
-﻿@model SystemMangement.Models.EmployeeVM
+﻿@model EmplSchoolMange.Models.EmployeeVM
 @{
-    ViewBag.Title="Create Employee";
+    ViewBag.Title = "Create Employee";
 }
 <h2>Create Employee</h2>
+
 
 <form asp-controller="Employee" asp-action="Create" method="post" class="form-group">
 
@@ -26,41 +27,34 @@
     <span class="text-danger" asp-validation-for="Email"></span>
     <br />
 
-    <label asp-for="Salary">Employee Salary</label>
-    <input type="text" asp-for="Salary" class="form-control" />
-    <span class="text-danger" asp-validation-for="Salary"></span>
-    <br />
+
     <label asp-for="HirDate">Hire Date</label>
     <input type="date" asp-for="HirDate" class="form-control" />
     <span class="text-danger" asp-validation-for="HirDate"></span>
     <br />
 
     <label asp-for="Notes">Notes</label>
-    <textarea asp-for="Notes" class="form-control" rows="4"></textarea> />
+    <textarea asp-for="Notes" class="form-control" rows="4"></textarea>
     <span class="text-danger" asp-validation-for="Notes"></span>
+    <br />
+
+    <label asp-for="DepartmentId">Department</label>
+    <select asp-for="DepartmentId" asp-items="@(SelectList)ViewBag.DepartmentList">
+        <option>Choose Department</option>
+    </select>
+    <span class="text-danger" asp-validation-for="DepartmentId"></span>
+    <br />
+
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" asp-for="IsActive" class="custom-control-input">
+        <label class="custom-control-label" asp-for="IsActive">Is Active</label>
+    </div>
+    <span class="text-danger" asp-validation-for="IsActive"></span>
     <br />
 
     <center>
         <input type="submit" value="Save" class="btn btn-primary" />
     </center>
-    @*     <label asp-for="DepartmentId">Department</label>
-        <select asp-for="DepartmentId" asp-items="@(SelectList)ViewBag.DepartmentList">
-            <option>Choose Department</option>
-        </select>
-        <span class="text-danger" asp-validation-for="Notes"></span>
-        <br /><br />
-
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" asp-for="IsActive" class="custom-control-input">
-            <label class="custom-control-label" asp-for="IsActive"> Is Active</label>
-        </div>
-        <span class="text-danger" asp-validation-for="IsActive"></span>
-
-        <br />
-        <center>
-            <input type="submit" value="Save" class="btn btn-primary" />
-        </center> *@
-
 </form>
 <script src="~/jquery/jquery.min.js"></script>
 <script src="~/jquery-validate/jquery.validate.min.js"></script>

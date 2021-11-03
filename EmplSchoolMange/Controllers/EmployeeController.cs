@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using EmplSchoolMange.BL.Interface;
 using EmplSchoolMange.Models;
 using EmplSchoolMange.DAL.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EmplSchoolMange.Controllers
 {
@@ -14,18 +15,25 @@ namespace EmplSchoolMange.Controllers
     {
         //Loosly Coupled
         private readonly IEmployeeRep employee;
+        private readonly IDepartmentRep department;
         //**** Dependancy Injection******
-        public EmployeeController(IEmployeeRep employee)
+        public EmployeeController(IEmployeeRep employee , IDepartmentRep department)
         {
             this.employee = employee;
+            this.department = department;
         }
         public IActionResult Index()
         {
             var data = employee.Get();
             return View(data);
         }
+
         public IActionResult Create()
         {
+            var date = department.Get();
+            //SelectList ينفع نحط فيه فاليو تيكست  using Microsoft.AspNetCore.Mvc.Rendering;
+
+            ViewBag.DepartmentList = new SelectList(date, "Id", "DepartmentName");
             return View();
         }
 
@@ -39,6 +47,9 @@ namespace EmplSchoolMange.Controllers
                     employee.Add(emp);
                     return RedirectToAction("Index", "Employee");
                 }
+                var data = employee.Get();
+                ViewBag.DepartmentList = new SelectList(data , "Id", "DepartmentName");
+
                 return View(emp);
             }
             catch (Exception ex)
@@ -57,6 +68,10 @@ namespace EmplSchoolMange.Controllers
         public IActionResult Edit(int id)
         {
             var data = employee.GetById(id);
+            var Deptdata = department.Get();
+
+            ViewBag.DepartmentList = new SelectList(Deptdata, "Id", "DepartmentName",data.DepartmentId);
+
             return View(data);
         }
 
@@ -70,6 +85,8 @@ namespace EmplSchoolMange.Controllers
                     employee.Edit(emp);
                     return RedirectToAction("Index", "Employee");
                 }
+                var Deptdata = department.Get();
+                ViewBag.DepartmentList = new SelectList(Deptdata, "Id", "DepartmentName", emp.DepartmentId);
                 return View(emp);
             }
             catch (Exception ex)
@@ -90,6 +107,9 @@ namespace EmplSchoolMange.Controllers
             //{
 
             //}
+            var Dptdata = department.Get();
+            ViewBag.DepartmentList = new SelectList(Dptdata, "Id", "DepartmentName", data.DepartmentId);
+
             return View(data);
         }
 
