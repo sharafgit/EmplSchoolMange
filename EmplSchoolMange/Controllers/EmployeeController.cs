@@ -33,7 +33,7 @@ namespace EmplSchoolMange.Controllers
             var date = department.Get();
             //SelectList ينفع نحط فيه فاليو تيكست  using Microsoft.AspNetCore.Mvc.Rendering;
 
-            ViewBag.DepartmentList = new SelectList(date, "Id", "DepartmentName");
+            ViewBag.DepartmentList = new SelectList(date,"Id","DepartmentName");
             return View();
         }
 
@@ -47,7 +47,7 @@ namespace EmplSchoolMange.Controllers
                     employee.Add(emp);
                     return RedirectToAction("Index", "Employee");
                 }
-                var data = employee.Get();
+                var data = department.Get();
                 ViewBag.DepartmentList = new SelectList(data , "Id", "DepartmentName");
 
                 return View(emp);
@@ -70,7 +70,7 @@ namespace EmplSchoolMange.Controllers
             var data = employee.GetById(id);
             var Deptdata = department.Get();
 
-            ViewBag.DepartmentList = new SelectList(Deptdata, "Id", "DepartmentName",data.DepartmentId);
+            //ViewBag.DepartmentList = new SelectList(Deptdata, "Id", "DepartmentName",data.DepartmentId);
 
             return View(data);
         }

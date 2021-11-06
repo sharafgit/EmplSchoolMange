@@ -13,6 +13,7 @@ using EmplSchoolMange.BL.Repository;
 using EmplSchoolMange.DAL.Database;
 using AutoMapper;
 using EmplSchoolMange.BL.Mapper;
+using Newtonsoft.Json.Serialization;
 
 namespace EmplSchoolMange
 {
@@ -30,13 +31,17 @@ namespace EmplSchoolMange
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            // XML ==> Json [{},{},{}]     // Serialize
+            // Bascal ==> Camel
+            services.AddControllersWithViews().AddNewtonsoftJson(opt => {
+                opt.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            });
 
             //*******ConnectionString********
             //AddDbContextPool بتفتح اكثر من مسار تنفيذي علي السيكوال
             services.AddDbContextPool<DbContainer>(opts => 
             opts.UseSqlServer(Conf.GetConnectionString("DefaultConnection")));
-
+            
             services.AddAutoMapper(x=>x.AddProfile(new DomainProfile()));
 
             #region Dependancy Injection
