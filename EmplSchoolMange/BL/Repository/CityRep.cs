@@ -39,13 +39,13 @@ namespace EmplSchoolMange.BL.Repository
         private IQueryable<CityVM> GetAllCityies()
         {
             return db.City
-                .Select(a => new CityVM { Id = a.Id, CityName = a.CityName ,CountryId=a.CountryId});
+                .Select(a => new CityVM { Id = a.Id, CityName = a.CityName ,CountryId=a.Country.CountryName});
         }
         private CityVM GetCityById(int id)
         {
             return db.City
                 .Where(a => a.Id == id)
-                                    .Select(a => new CityVM { Id = a.Id, CityName = a.CityName, CountryId = a.CountryId })
+                                    .Select(a => new CityVM { Id = a.Id, CityName = a.CityName, CountryId = a.Country.CountryName })
                                     .FirstOrDefault();
         }
     }

@@ -45,6 +45,31 @@
     <span class="text-danger" asp-validation-for="DepartmentId"></span>
     <br />
 
+
+    <label>Country</label>
+    <select id="countryId" asp-items="@(SelectList)ViewBag.CountryList">
+        <option>Choose Country</option>
+    </select>
+    <br />
+
+
+    <label>City</label>
+    <select id="cityId">
+        <option>Choose City</option>
+    </select>
+    <br />
+
+
+
+    <label asp-for="DistrictId">District</label>
+    <select asp-for="DistrictId">
+        <option>Choose District</option>
+    </select>
+    <span class="text-danger" asp-validation-for="DistrictId"></span>
+    <br />
+
+
+
     <div class="custom-control custom-checkbox">
         <input type="checkbox" asp-for="IsActive" class="custom-control-input">
         <label class="custom-control-label" asp-for="IsActive">Is Active</label>

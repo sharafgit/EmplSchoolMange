@@ -28,5 +28,6 @@ namespace EmplSchoolMange.Models
         public string Notes { get; set; }
         // ForeignKey      
         public string DepartmentId { get; set; }
+        public string DistrictId { get; set; }
     }
 }

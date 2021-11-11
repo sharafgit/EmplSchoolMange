@@ -37,13 +37,13 @@ namespace EmplSchoolMange.BL.Repository
         private IQueryable<DistrictVM> GetAllDistricties()
         {
             return db.District
-                .Select(a => new DistrictVM { Id = a.Id, DistrictName = a.DistrictName, CityId = a.CityId });
+                .Select(a => new DistrictVM { Id = a.Id, DistrictName = a.DistrictName, CityId = a.City.CityName });
         }
         private DistrictVM GetDistrictById(int id)
         {
             return db.District
                 .Where(a => a.Id == id)
-                                    .Select(a => new DistrictVM { Id = a.Id, DistrictName = a.DistrictName, CityId = a.CityId })
+                                    .Select(a => new DistrictVM { Id = a.Id, DistrictName = a.DistrictName, CityId = a.City.CityName })
                                     .FirstOrDefault();
         }
     }

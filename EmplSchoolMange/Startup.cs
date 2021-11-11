@@ -53,6 +53,11 @@ namespace EmplSchoolMange
             //2 ===> Take One Instance For Each User
             services.AddScoped<IDepartmentRep, DepartmentRep>(); 
             services.AddScoped<IEmployeeRep, EmployeeRep>();
+            services.AddScoped<ICountryRep, CountryRep>();
+            services.AddScoped<ICityRep, CityRep>();
+            services.AddScoped<IDistrictRep, DistrictRep>();
+
+
 
             //3 ===> Take Shared Instance For All Users
             //services.AddSingleton<DepartmentRep>(); 

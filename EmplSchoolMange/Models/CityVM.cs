@@ -9,7 +9,7 @@ namespace EmplSchoolMange.Models
     {
         public int Id { get; set; }
         public string CityName { get; set; }
-        public int CountryId { get; set; }
+        public string CountryId { get; set; }
 
     }
 }

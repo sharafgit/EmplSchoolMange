@@ -16,11 +16,17 @@ namespace EmplSchoolMange.Controllers
         //Loosly Coupled
         private readonly IEmployeeRep employee;
         private readonly IDepartmentRep department;
+        private readonly ICountryRep country;
+        private readonly ICityRep city;
+        private readonly IDistrictRep district;
         //**** Dependancy Injection******
-        public EmployeeController(IEmployeeRep employee , IDepartmentRep department)
+        public EmployeeController(IEmployeeRep employee, IDepartmentRep department, ICountryRep country, ICityRep city, IDistrictRep district)
         {
             this.employee = employee;
             this.department = department;
+            this.country = country;
+            this.city = city;
+            this.district = district;
         }
         public IActionResult Index()
         {
@@ -31,13 +37,16 @@ namespace EmplSchoolMange.Controllers
         public IActionResult Create()
         {
             var date = department.Get();
+            var countrydate = country.Get();
+
             //SelectList ينفع نحط فيه فاليو تيكست  using Microsoft.AspNetCore.Mvc.Rendering;
 
-            ViewBag.DepartmentList = new SelectList(date,"Id","DepartmentName");
+            ViewBag.DepartmentList = new SelectList(date, "Id", "DepartmentName");
+            ViewBag.CountryList = new SelectList(countrydate, "Id", "CountryName");
             return View();
         }
 
-        [HttpPost]
+        [HttpPost] 
         public IActionResult Create(EmployeeVM emp)
         {
             try
