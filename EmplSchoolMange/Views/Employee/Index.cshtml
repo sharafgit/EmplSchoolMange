@@ -1,42 +1,63 @@
 ﻿@model IQueryable<EmplSchoolMange.Models.EmployeeVM>
+
+@using Microsoft.Extensions.Localization
+@using EmplSchoolMange.Resource.Employee
+
+@inject IStringLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewBag.Title = "Employee";
+    ViewBag.Title = SharedLocalizer["Employee"];
+    var Culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
 }
 
-<h2>Welcome to Employee</h2>
+@if (Culture == "ar-EG")
+{
+    <h3 id="Myh" style="">
+        <a asp-controller="Employee" asp-action="Index" asp-route-culture="en-US">@SharedLocalizer["English"]</a>
+        <br />
+    </h3>
+}
+@if (Culture == "en-US")
+{
+    <h3 id="Myh" style="">
+        <a asp-controller="Employee" asp-action="Index" asp-route-culture="ar-EG">@SharedLocalizer["Arabic"]</a>
+        <br />
+    </h3>
+}
 
-<a asp-controller="Employee" asp-action="Create" class="btn btn-primary">Add Employee</a>
+<h2 id="Myh2">@SharedLocalizer["WTE"]</h2>
+
+<a asp-controller="Employee" asp-action="Create" class="btn btn-primary">@SharedLocalizer["AddEmployee"]</a>
 <br />
 <table class="table table-striped table-bordered text-center">
     <tr>
-        <th class="text-center">Name</th>
-        <th class="text-center">Salary</th>
-        <th class="text-center">Address</th>
-        <th class="text-center">Hir Date</th>
-        <th class="text-center">Email</th>
-        <th class="text-center">Is Active</th>
-        <th class="text-center">Notes</th>
-        <th class="text-center">Department</th>
-        <th class="text-center">District</th>
-        <th class="text-center">Edite</th>
-        <th class="text-center">Delete</th>
+        <th class="text-center">@SharedLocalizer["Name"]</th>
+        <th class="text-center">@SharedLocalizer["Salary"]</th>
+        <th class="text-center">@SharedLocalizer["Address"]</th>
+        <th class="text-center">@SharedLocalizer["HirDate"]</th>
+        <th class="text-center">@SharedLocalizer["Email"]</th>
+        <th class="text-center">@SharedLocalizer["IsActive"]</th>
+        <th class="text-center">@SharedLocalizer["Notes"]</th>
+        <th class="text-center">@SharedLocalizer["Department"]</th>
+        <th class="text-center">@SharedLocalizer["District"]</th>
+        <th class="text-center">@SharedLocalizer["Edit"]</th>
+        <th class="text-center">@SharedLocalizer["Delete"]</th>
     </tr>
     @foreach (var item in Model)
     {
-<tr>
-    <td>@item.Name</td>
-    <td>@item.Salary</td>
-    <td>@item.Address</td>
-    <td>@item.HirDate.Date.ToShortDateString()</td>
-    <td>@item.Email</td>
-    <td>@item.IsActive</td>
-    <td>@item.Notes</td>
-    <td>@item.DepartmentId</td>
-    <td>@item.DistrictId</td>
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Salary</td>
+            <td>@item.Address</td>
+            <td>@item.HirDate.Date.ToShortDateString()</td>
+            <td>@item.Email</td>
+            <td>@item.IsActive</td>
+            <td>@item.Notes</td>
+            <td>@item.DepartmentId</td>
+            <td>@item.DistrictId</td>
 
-    <td><a asp-controller="Employee" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a></td>
-    <td><a asp-controller="Employee" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>
-</tr>
+            <td><a asp-controller="Employee" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">@SharedLocalizer["Edit"]</a></td>
+            <td><a asp-controller="Employee" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">@SharedLocalizer["Delete"]</a></td>
+        </tr>
     }
 
 </table>

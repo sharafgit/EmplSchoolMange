@@ -14,6 +14,9 @@ using EmplSchoolMange.DAL.Database;
 using AutoMapper;
 using EmplSchoolMange.BL.Mapper;
 using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace EmplSchoolMange
 {
@@ -31,9 +34,14 @@ namespace EmplSchoolMange
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // services.AddLocalization(opt => opt.ResourcesPath = "");
             // XML ==> Json [{},{},{}]     // Serialize
             // Bascal ==> Camel
-            services.AddControllersWithViews().AddNewtonsoftJson(opt => {
+            services.AddControllersWithViews()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization()
+                .AddNewtonsoftJson(opt => {
                 opt.SerializerSettings.ContractResolver = new DefaultContractResolver();
             });
 
@@ -77,6 +85,27 @@ namespace EmplSchoolMange
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            // Take Instance From Language
+            var supportedCultures = new[] {
+            new CultureInfo("ar-EG"),
+            new CultureInfo("en-US"),
+            };
+
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en-US"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures,
+                RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                new QueryStringRequestCultureProvider(),
+                new CookieRequestCultureProvider()
+                }
+            });
+
+
             app.UseStaticFiles();
 
             app.UseRouting();

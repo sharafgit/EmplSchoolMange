@@ -140,5 +140,20 @@ namespace EmplSchoolMange.Controllers
                 return View();
             }
         }
+
+
+        //---------------Ajax Call---------------
+        public JsonResult GetCityDataByCountryId(int CntryID)
+        {
+            var data = city.Get().Where(a => a.CountryId == CntryID);
+            return Json(data);
+        }
+
+        public JsonResult GetDistrictDataByCityId(int cityID)
+        {
+            var data = district.Get().Where(a => a.CityId == cityID);
+            return Json(data);
+        }
+
     }
 }

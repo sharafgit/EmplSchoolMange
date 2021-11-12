@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var Culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+}
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -33,6 +36,16 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="~/css/themes/all-themes.css" rel="stylesheet" />
+
+
+    @if (Culture == "ar-EG")
+    {
+        <link href="~/css/Ar-Style.css" rel="stylesheet" />
+    }
+    @if (Culture == "en-US")
+    {
+        <link href="~/css/En-Style.css" rel="stylesheet" />
+    }
 </head>
 
 <body class="theme-red">
