@@ -20,7 +20,7 @@ namespace EmplSchoolMange.Models
         [Range(3000, 10000, ErrorMessage = ("Enter Salary From 3k to 10k"))]
         public float Salary { get; set; }
         [Required(ErrorMessage = "Enter The Adress Employee")]
-        [RegularExpression("[0-9]{2-5}-[a-zA-Z]{3,50}-[a-zA-Z]{3,50}-[a-zA-Z]{3,50}", ErrorMessage =("Enter Like 10-StreetName-CityName-CountryName"))]
+        //[RegularExpression("[0-9]{2-5}-[a-zA-Z]{3,50}-[a-zA-Z]{3,50}-[a-zA-Z]{3,50}", ErrorMessage =("10-StreetName-CityName-CountryName"))]
         public string Address { get; set; }
         public DateTime HirDate { get; set; }
         public string Email { get; set; }
@@ -28,5 +28,6 @@ namespace EmplSchoolMange.Models
         public string Notes { get; set; }
         // ForeignKey      
         public string DepartmentId { get; set; }
+        public string DistrictId { get; set; }
     }
 }

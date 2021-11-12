@@ -10,7 +10,7 @@ namespace EmplSchoolMange.BL.Interface
     {
         IQueryable<EmployeeVM> Get();
         EmployeeVM GetById(int id);
-
+         
         //use to void because add do not return data just send data only
         void Add(EmployeeVM dpt);
         void Edit(EmployeeVM dpt);

@@ -17,6 +17,7 @@
         <th class="text-center">Is Active</th>
         <th class="text-center">Notes</th>
         <th class="text-center">Department</th>
+        <th class="text-center">District</th>
         <th class="text-center">Edite</th>
         <th class="text-center">Delete</th>
     </tr>
@@ -26,11 +27,12 @@
     <td>@item.Name</td>
     <td>@item.Salary</td>
     <td>@item.Address</td>
-    <td>@item.HirDate</td>
+    <td>@item.HirDate.Date.ToShortDateString()</td>
     <td>@item.Email</td>
     <td>@item.IsActive</td>
     <td>@item.Notes</td>
     <td>@item.DepartmentId</td>
+    <td>@item.DistrictId</td>
 
     <td><a asp-controller="Employee" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a></td>
     <td><a asp-controller="Employee" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>

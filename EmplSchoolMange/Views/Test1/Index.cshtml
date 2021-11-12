@@ -1,0 +1,54 @@
+﻿
+@{
+    Layout = null;
+}
+@*Inject In View*@
+
+@inject EmplSchoolMange.BL.Interface.IDepartmentRep department
+@inject EmplSchoolMange.BL.Interface.IEmployeeRep employee
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @*<ul>
+        @foreach (var item in department.Get())
+        {
+            <li>@item.DepartmentName</li>
+        }
+    </ul>
+    <ul>
+        @foreach (var item in employee.Get())
+        {
+            <li>@item.Name</li>
+        }
+    </ul>*@
+    Enter Name <input type="text" id="txt1" />
+    <input type="button" value="Click Me" id="btn" />
+    <div id="mydiv"></div>
+
+    <script src="~/plugins/jquery/jquery.js"></script>
+    <script>
+        $(function () {
+            $("#btn").click(function () {
+                var Name = $("#txt1").val();
+
+                $.ajax({
+
+                    type:"POST",
+                    url: "/Test1/Display",
+                    data: {name:Name},
+                    success: function (res) {
+
+                        $("#mydiv").text(res);
+                    }
+                
+                });
+            });
+        });
+    </script>
+</body>
+</html>

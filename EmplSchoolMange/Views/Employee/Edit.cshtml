@@ -1,7 +1,66 @@
-﻿@model IQueryable<EmplSchoolMange.Models.EmployeeVM>
+﻿@model EmplSchoolMange.Models.EmployeeVM
 @{
     ViewBag.Title = "Edit";
 }
 
 <h2>Employee Edit</h2>
 
+<form asp-controller="Employee" asp-action="Edit" method="post" class="form-group">
+
+    <label asp-for="Name">Employee Name</label>
+    <input type="text" asp-for="Name" class="form-control" />
+    <span class="text-danger" asp-validation-for="Name"></span>
+    <br />
+
+    <label asp-for="Salary">Employee Salary</label>
+    <input type="text" asp-for="Salary" class="form-control" />
+    <span class="text-danger" asp-validation-for="Salary"></span>
+    <br />
+
+    <label asp-for="Address">Employee Address</label>
+    <input type="text" asp-for="Address" class="form-control" />
+    <span class="text-danger" asp-validation-for="Address"></span>
+    <br />
+
+    <label asp-for="Email">Employee Email</label>
+    <input type="text" asp-for="Email" class="form-control" />
+    <span class="text-danger" asp-validation-for="Email"></span>
+    <br />
+
+
+    <label asp-for="HirDate">Hire Date</label>
+    <input type="date" asp-for="HirDate" class="form-control" />
+    <span class="text-danger" asp-validation-for="HirDate"></span>
+    <br />
+
+    <label asp-for="Notes">Notes</label>
+    <textarea asp-for="Notes" class="form-control" rows="4"></textarea>
+    <span class="text-danger" asp-validation-for="Notes"></span>
+    <br />
+
+    <label asp-for="DepartmentId">Department</label>
+    <select asp-for="DepartmentId" asp-items="@(SelectList)ViewBag.DepartmentList">
+        <option>Choose Department</option>
+    </select>
+    <span class="text-danger" asp-validation-for="DepartmentId"></span>
+    <br />
+
+    @*<label asp-for="DistrictId">District</label>
+    <textarea asp-for="DistrictId" class="form-control" rows="4"></textarea>
+    <span class="text-danger" asp-validation-for="DistrictId"></span>
+    <br />*@
+
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" asp-for="IsActive" class="custom-control-input">
+        <label class="custom-control-label" asp-for="IsActive">Is Active</label>
+    </div>
+    <span class="text-danger" asp-validation-for="IsActive"></span>
+    <br />
+
+    <center>
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </center>
+</form>
+<script src="~/jquery/jquery.min.js"></script>
+<script src="~/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

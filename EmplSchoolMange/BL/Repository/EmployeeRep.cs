@@ -36,7 +36,7 @@ namespace EmplSchoolMange.BL.Repository
         //Refeactorings*****GetById==>GetDepartmentById
         public EmployeeVM GetById(int id)
         {
-            EmployeeVM data = GetEmployeeById(id);
+            EmployeeVM data = GetEmployeeByID(id);
             return data;
         }
 
@@ -68,16 +68,30 @@ namespace EmplSchoolMange.BL.Repository
 
 
         //Refeactorings
+        //private IQueryable<EmployeeVM> GetAllEmps()
+        //{
+        //    return db.Employee
+        //        .Select(a => new EmployeeVM{ Id = a.Id, Name=a.Name, Salary=a.Salary, Address=a.Address, Email=a.Email, HirDate=a.HirDate, IsActive=a.IsActive, Notes=a.Notes, DepartmentId = a.Department.DepartmentName ,DistrictId=a.District.DistrictName });
+        //}
+        //private EmployeeVM GetEmployeeById(int id)
+        //{
+        //    return db.Employee.Where(a => a.Id == id)
+        //          .Select(a => new EmployeeVM{ Id = a.Id, Name = a.Name, Salary = a.Salary, Address = a.Address, Email = a.Email, HirDate = a.HirDate, IsActive = a.IsActive, Notes = a.Notes, DepartmentId = a.Department.DepartmentName, DistrictId = a.District.DistrictName })
+        //          .FirstOrDefault();
+        //}
+
+
+        private EmployeeVM GetEmployeeByID(int id)
+        {
+            return db.Employee.Where(a => a.Id == id)
+                                    .Select(a => new EmployeeVM { Id = a.Id, Name = a.Name, Salary = a.Salary, Address = a.Address, HirDate = a.HirDate, IsActive = a.IsActive, Email = a.Email, Notes = a.Notes, DepartmentId = a.Department.DepartmentName, DistrictId = a.District.DistrictName })
+                                    .FirstOrDefault();
+        }
+
         private IQueryable<EmployeeVM> GetAllEmps()
         {
             return db.Employee
-                .Select(a => new EmployeeVM{ Id = a.Id, Name=a.Name, Salary=a.Salary, Address=a.Address, Email=a.Email, HirDate=a.HirDate, IsActive=a.IsActive, Notes=a.Notes, DepartmentId = a.Department.DepartmentName });
-        }
-        private EmployeeVM GetEmployeeById(int id)
-        {
-            return db.Employee.Where(a => a.Id == id)
-                                    .Select(a => new EmployeeVM{ Id = a.Id, Name = a.Name, Salary = a.Salary, Address = a.Address, Email = a.Email, HirDate = a.HirDate, IsActive = a.IsActive, Notes = a.Notes, DepartmentId = a.Department.DepartmentName })
-                                    .FirstOrDefault();
+                       .Select(a => new EmployeeVM { Id = a.Id, Name = a.Name, Salary = a.Salary, Address = a.Address, HirDate = a.HirDate, IsActive = a.IsActive, Email = a.Email, Notes = a.Notes, DepartmentId = a.Department.DepartmentName, DistrictId = a.District.DistrictName });
         }
     }
 }
