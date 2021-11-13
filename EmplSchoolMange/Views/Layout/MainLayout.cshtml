@@ -19,8 +19,10 @@
 
     <!-- Bootstrap Core Css -->
     <link href="~/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- JQuery DataTable Css -->
 
-    @*<link href="~/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />*@
+    <link href="~/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="~/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
 
     <!-- Waves Effect Css -->
     <link href="~/plugins/node-waves/waves.css" rel="stylesheet" />
@@ -852,6 +854,9 @@
     <!-- Select Plugin Js -->
     <script src="~/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
+    <script src="~/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="~/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+
     <!-- Slimscroll Plugin Js -->
     <script src="~/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
@@ -880,12 +885,12 @@
 
     <!-- Custom Js -->
     <script src="~/js/admin.js"></script>
-    <script src="~/js/pages/index.js"></script>
+    @*<script src="~/js/pages/index.js"></script>*@
 
     <!-- Demo Js -->
 
     <script src="~/js/demo.js"></script>
-
+@RenderSection("DataTableSection", required: false);
 </body>
 
 </html>
