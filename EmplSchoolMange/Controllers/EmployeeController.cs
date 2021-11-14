@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,20 +8,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using EmplSchoolMange.BL.Interface;
 using EmplSchoolMange.Models;
-using EmplSchoolMange.DAL.Entities;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using EmplSchoolMange.Resource;
 
 namespace EmplSchoolMange.Controllers
 {
     public class EmployeeController : Controller
     {
-        //Loosly Coupled
+
+        // Loosly Coupled
         private readonly IEmployeeRep employee;
         private readonly IDepartmentRep department;
         private readonly ICountryRep country;
         private readonly ICityRep city;
         private readonly IDistrictRep district;
-        //**** Dependancy Injection******
+        //private readonly IStringLocalizer<SharedResource> sharedLocalizer;
+
+        // Dependency Injection
         public EmployeeController(IEmployeeRep employee, IDepartmentRep department, ICountryRep country, ICityRep city, IDistrictRep district)
         {
             this.employee = employee;
@@ -27,26 +31,42 @@ namespace EmplSchoolMange.Controllers
             this.country = country;
             this.city = city;
             this.district = district;
+            //sharedLocalizer = SharedLocalizer;
         }
-        public IActionResult Index()
+
+        public IActionResult Index(int PageIndex, int PageSize)
         {
+
+            //var data = employee.Get().Skip(3).Take(3);
             var data = employee.Get();
+
             return View(data);
         }
 
-        public IActionResult Create()
+        public IActionResult Details(int id)
         {
-            var date = department.Get();
-            var countrydate = country.Get();
-
+            var data = employee.GetById(id);
+            var Dptdata = department.Get();
+            var countrydata = country.Get();
             //SelectList ينفع نحط فيه فاليو تيكست  using Microsoft.AspNetCore.Mvc.Rendering;
 
-            ViewBag.DepartmentList = new SelectList(date, "Id", "DepartmentName");
-            ViewBag.CountryList = new SelectList(countrydate, "Id", "CountryName");
+            ViewBag.DepartmentList = new SelectList(Dptdata, "Id", "DepartmentName", data.DepartmentId);
+            ViewBag.CountryList = new SelectList(countrydata, "Id", "CountryName", data.DistrictId);
+
+            return View(data);
+        }
+        public IActionResult Create()
+        {
+            var data = department.Get();
+            var countrydata = country.Get();
+
+            ViewBag.DepartmentList = new SelectList(data, "Id", "DepartmentName");
+            ViewBag.CountryList = new SelectList(countrydata, "Id", "CountryName");
+
             return View();
         }
 
-        [HttpPost] 
+        [HttpPost]
         public IActionResult Create(EmployeeVM emp)
         {
             try
@@ -56,15 +76,16 @@ namespace EmplSchoolMange.Controllers
                     employee.Add(emp);
                     return RedirectToAction("Index", "Employee");
                 }
-                var data = department.Get();
-                ViewBag.DepartmentList = new SelectList(data , "Id", "DepartmentName");
 
+                var data = department.Get();
+
+                ViewBag.DepartmentList = new SelectList(data, "Id", "DepartmentName");
                 return View(emp);
             }
             catch (Exception ex)
             {
                 EventLog log = new EventLog();
-                log.Source = "Admin Dashbord";
+                log.Source = "Admin Dashboard";
                 log.WriteEntry(ex.Message, EventLogEntryType.Error);
 
                 return View(emp);
@@ -73,12 +94,13 @@ namespace EmplSchoolMange.Controllers
 
         }
 
-
         public IActionResult Edit(int id)
         {
             var data = employee.GetById(id);
+
             var Deptdata = department.Get();
 
+            ViewBag.DepartmentList = new SelectList(Deptdata, "Id", "DepartmentName", data.DepartmentId);
             //ViewBag.DepartmentList = new SelectList(Deptdata, "Id", "DepartmentName",data.DepartmentId);
 
             return View(data);
@@ -94,14 +116,17 @@ namespace EmplSchoolMange.Controllers
                     employee.Edit(emp);
                     return RedirectToAction("Index", "Employee");
                 }
+
                 var Deptdata = department.Get();
+
                 ViewBag.DepartmentList = new SelectList(Deptdata, "Id", "DepartmentName", emp.DepartmentId);
+
                 return View(emp);
             }
             catch (Exception ex)
             {
                 EventLog log = new EventLog();
-                log.Source = "Admin Dashbord";
+                log.Source = "Admin Dashboard";
                 log.WriteEntry(ex.Message, EventLogEntryType.Error);
 
                 return View(emp);
@@ -112,10 +137,11 @@ namespace EmplSchoolMange.Controllers
         public IActionResult Delete(int id)
         {
             var data = employee.GetById(id);
-            //if (data==null)
+            //if(data == null)
             //{
 
             //}
+
             var Dptdata = department.Get();
             ViewBag.DepartmentList = new SelectList(Dptdata, "Id", "DepartmentName", data.DepartmentId);
 
@@ -134,7 +160,7 @@ namespace EmplSchoolMange.Controllers
             catch (Exception ex)
             {
                 EventLog log = new EventLog();
-                log.Source = "Admin Dashbord";
+                log.Source = "Admin Dashboard";
                 log.WriteEntry(ex.Message, EventLogEntryType.Error);
 
                 return View();
@@ -142,18 +168,38 @@ namespace EmplSchoolMange.Controllers
         }
 
 
-        //---------------Ajax Call---------------
+
+        // --------------------- Ajax Call -----------------------
+
+        [HttpPost]
         public JsonResult GetCityDataByCountryId(int CntryID)
         {
             var data = city.Get().Where(a => a.CountryId == CntryID);
             return Json(data);
         }
 
-        public JsonResult GetDistrictDataByCityId(int cityID)
+
+        [HttpPost]
+        public JsonResult GetDistrictDataByCityId(int cityId)
         {
-            var data = district.Get().Where(a => a.CityId == cityID);
+            var data = district.Get().Where(a => a.CityId == cityId);
             return Json(data);
         }
+
+
+
+
+
+
+        //public IActionResult Arabic()
+        //{
+        //    return Redirect(Request.UrlRefer)
+        //}
+
+
+
+
+
 
     }
 }

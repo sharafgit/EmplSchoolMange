@@ -2,6 +2,11 @@
 @{
     ViewBag.Title = "Create Employee";
 }
+
+<a asp-controller="Employee" asp-action="Index" class="btn btn-primary">Back To Employees</a>
+
+
+
 <h2>Create Employee</h2>
 
 
@@ -10,55 +15,56 @@
     <label asp-for="Name">Employee Name</label>
     <input type="text" asp-for="Name" class="form-control" />
     <span class="text-danger" asp-validation-for="Name"></span>
-    <br />
+    <br /><br />
 
     <label asp-for="Salary">Employee Salary</label>
     <input type="text" asp-for="Salary" class="form-control" />
     <span class="text-danger" asp-validation-for="Salary"></span>
-    <br />
+    <br /><br />
 
     <label asp-for="Address">Employee Address</label>
     <input type="text" asp-for="Address" class="form-control" />
     <span class="text-danger" asp-validation-for="Address"></span>
-    <br />
+    <br /><br />
 
     <label asp-for="Email">Employee Email</label>
-    <input type="text" asp-for="Email" class="form-control" />
+    <input type="email" asp-for="Email" class="form-control" />
     <span class="text-danger" asp-validation-for="Email"></span>
-    <br />
+    <br /><br />
 
 
-    <label asp-for="HirDate">Hire Date</label>
-    <input type="date" asp-for="HirDate" class="form-control" />
-    <span class="text-danger" asp-validation-for="HirDate"></span>
-    <br />
+    <label asp-for="HireDate">Hire Date</label>
+    <input type="date" asp-for="HireDate" class="form-control" />
+    <span class="text-danger" asp-validation-for="HireDate"></span>
+    <br /><br />
+
 
     <label asp-for="Notes">Notes</label>
     <textarea asp-for="Notes" class="form-control" rows="4"></textarea>
     <span class="text-danger" asp-validation-for="Notes"></span>
-    <br />
+    <br /><br />
+
 
     <label asp-for="DepartmentId">Department</label>
     <select asp-for="DepartmentId" asp-items="@(SelectList)ViewBag.DepartmentList">
         <option>Choose Department</option>
     </select>
-    <span class="text-danger" asp-validation-for="DepartmentId"></span>
-    <br />
+    <span class="text-danger" asp-validation-for="Notes"></span>
+    <br /><br />
 
 
     <label>Country</label>
-    <select id="countryId" asp-items="@(SelectList)ViewBag.CountryList">
+    <select id="CountryId" asp-items="@(SelectList)ViewBag.CountryList">
         <option>Choose Country</option>
     </select>
-    <br />
+    <br /><br />
 
 
     <label>City</label>
-    <select id="cityId">
+    <select id="CityId">
         <option>Choose City</option>
     </select>
-    <br />
-
+    <br /><br />
 
 
     <label asp-for="DistrictId">District</label>
@@ -66,21 +72,87 @@
         <option>Choose District</option>
     </select>
     <span class="text-danger" asp-validation-for="DistrictId"></span>
-    <br />
+    <br /><br />
 
 
 
     <div class="custom-control custom-checkbox">
         <input type="checkbox" asp-for="IsActive" class="custom-control-input">
-        <label class="custom-control-label" asp-for="IsActive">Is Active</label>
+        <label class="custom-control-label" asp-for="IsActive"> Is Active</label>
     </div>
     <span class="text-danger" asp-validation-for="IsActive"></span>
-    <br />
 
+    <br />
     <center>
         <input type="submit" value="Save" class="btn btn-primary" />
     </center>
+
 </form>
+
 <script src="~/jquery/jquery.min.js"></script>
-<script src="~/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/jquery-validate/jquery.validate.js"></script>
 <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+
+    $(function () {
+
+        // Get City Data
+        $("#CountryId").change(function () {
+
+            $("#CityId").empty();
+            $("#CityId").append("<option>Choose City</option>");
+
+            var countryId = $("#CountryId").val();
+
+            $.ajax({
+
+                type: "POST",
+                url: "/Employee/GetCityDataByCountryId",
+                data: { CntryID: countryId },
+                success: function (res) {
+
+                    $.each(res, function (i, e) {
+
+                        $("#CityId").append("<option value='" + e.Id + "'>" + e.CityName + "</option>");
+
+                    });
+
+                }
+
+            });
+
+        });
+
+
+        // Get District Data
+        $("#CityId").change(function () {
+
+            $("#DistrictId").empty();
+            $("#DistrictId").append("<option>Choose District</option>");
+
+            var cityId = $("#CityId").val();
+
+            $.ajax({
+
+                type: "POST",
+                url: "/Employee/GetDistrictDataByCityId",
+                data: { cityId: cityId },
+                success: function (res) {
+
+                    $.each(res, function (i, e) {
+
+                        $("#DistrictId").append("<option value='" + e.Id + "'>" + e.DistrictName + "</option>");
+
+                    });
+
+                }
+
+            });
+
+        });
+
+    });
+
+
+</script>

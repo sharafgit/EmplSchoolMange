@@ -4,44 +4,36 @@
 @using EmplSchoolMange.Resource.Employee
 
 @inject IStringLocalizer<SharedResource> SharedLocalizer
+
 @{
     ViewBag.Title = SharedLocalizer["Employee"];
-    //Layout = null;
     var Culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
 }
 
 
-<!-- Google Fonts -->
-<!--<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
-      type="text/css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">-->
 
-
-<!-- JQuery DataTable Css -->
-<!--<link href="~/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="~/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
-<link href="~/css/style.css" rel="stylesheet">-->
 
 
 @if (Culture == "ar-EG")
 {
-    <h3 id="Myh" style="">
+    <h3 id="Myh">
         <a asp-controller="Employee" asp-action="Index" asp-route-culture="en-US">@SharedLocalizer["English"]</a>
-        <br />
-    </h3>
-}
-@if (Culture == "en-US")
-{
-    <h3 id="Myh" style="">
-        <a asp-controller="Employee" asp-action="Index" asp-route-culture="ar-EG">@SharedLocalizer["Arabic"]</a>
-        <br />
     </h3>
 }
 
+@if (Culture == "en-US")
+{
+    <h3 id="Myh">
+        <a asp-controller="Employee" asp-action="Index" asp-route-culture="ar-EG">@SharedLocalizer["Arabic"]</a>
+    </h3>
+}
+
+
+
+<br />
 
 
 <a asp-controller="Employee" asp-action="Create" class="btn btn-primary">@SharedLocalizer["AddEmployee"]</a>
-<br />
 
 
 <div class="container-fluid">
@@ -49,7 +41,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <h2 id="Myh2">@SharedLocalizer["WTE"]</h2>
+                    <h2>@SharedLocalizer["WTE"]</h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -65,43 +57,37 @@
                 </div>
                 <div class="body">
                     <div class="table-responsive">
-                        <table class="table table-bordered text-center table-striped table-hover js-basic-example dataTable">
+                        <table class="table table-bordered table-striped text-center table-hover js-basic-example dataTable">
+
                             <thead>
                                 <tr>
                                     <th class="text-center">@SharedLocalizer["Name"]</th>
                                     <th class="text-center">@SharedLocalizer["Salary"]</th>
-                                    <th class="text-center">@SharedLocalizer["Address"]</th>
-                                    <th class="text-center">@SharedLocalizer["HirDate"]</th>
-                                    <th class="text-center">@SharedLocalizer["Email"]</th>
-                                    <th class="text-center">@SharedLocalizer["IsActive"]</th>
-                                    <th class="text-center">@SharedLocalizer["Notes"]</th>
                                     <th class="text-center">@SharedLocalizer["Department"]</th>
-                                    <th class="text-center">@SharedLocalizer["District"]</th>
                                     <th class="text-center">@SharedLocalizer["Edit"]</th>
                                     <th class="text-center">@SharedLocalizer["Delete"]</th>
+                                    <th class="text-center">Details</th>
+
                                 </tr>
                             </thead>
-
                             <tbody>
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                        @*<td>@item.Id</td>*@
+
                                         <td>@item.Name</td>
                                         <td>@item.Salary</td>
-                                        <td>@item.Address</td>
-                                        <td>@item.HirDate.Date.ToShortDateString()</td>
-                                        <td>@item.Email</td>
-                                        <td>@item.IsActive</td>
-                                        <td>@item.Notes</td>
-                                        <td>@item.DepartmentId</td>
-                                        <td>@item.DistrictId</td>
+                                        <td>@item.DepartmentName</td>
 
                                         <td><a asp-controller="Employee" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">@SharedLocalizer["Edit"]</a></td>
                                         <td><a asp-controller="Employee" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">@SharedLocalizer["Delete"]</a></td>
+                                        <td><a asp-controller="Employee" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a></td>
+
                                     </tr>
                                 }
+
                             </tbody>
+
 
                         </table>
                     </div>
@@ -110,24 +96,23 @@
         </div>
     </div>
 </div>
-<!--<script src="~/plugins/jquery/jquery.min.js"></script>-->
-<!-- Bootstrap Core Js -->
-<!--<script src="~/plugins/bootstrap/js/bootstrap.js"></script>-->
 
-<!-- Select Plugin Js -->
-<!--<script src="~/plugins/bootstrap-select/js/bootstrap-select.js"></script>
-<script src="~/plugins/jquery-datatable/jquery.dataTables.js"></script>
-<script src="~/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>-->
 
-@section DataTableSection{ 
+
+
+
+@*<input type="text" placeholder="@SharedLocalizer["Edit"]" />*@
+
+
+
+@section DataTableSection{
 
     <script>
-        //Ajax
         $(function () {
             $('.js-basic-example').DataTable({
                 responsive: true,
                 paging: true,
-                pageLength: 5,
+                pageLength: 3,
                 bSort: true,
                 bFilter: true,
                 //bLengthChange: false,
@@ -136,6 +121,6 @@
 
             });
         });
-
     </script>
 }
+

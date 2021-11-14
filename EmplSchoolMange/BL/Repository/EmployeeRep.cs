@@ -5,26 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using EmplSchoolMange.BL.Interface;
 using EmplSchoolMange.DAL.Database;
-using EmplSchoolMange.DAL.Entities;
 using EmplSchoolMange.Models;
+using EmplSchoolMange.DAL.Entities;
 
 namespace EmplSchoolMange.BL.Repository
 {
-    public class EmployeeRep :IEmployeeRep
+    public class EmployeeRep : IEmployeeRep
     {
-
         private readonly DbContainer db;
         private readonly IMapper mapper;
 
-        //private DbContainer db= new DbContainer();
         public EmployeeRep(DbContainer db, IMapper _Mapper)
         {
             this.db = db;
             mapper = _Mapper;
         }
 
-
-        //Refeactorings*****Get==>GetAllDepts
         public IQueryable<EmployeeVM> Get()
         {
             IQueryable<EmployeeVM> data = GetAllEmps();
@@ -32,8 +28,6 @@ namespace EmplSchoolMange.BL.Repository
         }
 
 
-
-        //Refeactorings*****GetById==>GetDepartmentById
         public EmployeeVM GetById(int id)
         {
             EmployeeVM data = GetEmployeeByID(id);
@@ -43,7 +37,7 @@ namespace EmplSchoolMange.BL.Repository
 
         public void Add(EmployeeVM emp)
         {
-            //Mapping
+            // Mapping
             var data = mapper.Map<Employee>(emp);
 
             db.Employee.Add(data);
@@ -52,46 +46,35 @@ namespace EmplSchoolMange.BL.Repository
 
         public void Edit(EmployeeVM emp)
         {
-            //Mapping
+            // Mapping
             var data = mapper.Map<Employee>(emp);
             db.Entry(data).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
             db.SaveChanges();
 
         }
 
         public void Delete(int id)
         {
-            var DeleteObject = db.Employee.Find(id);
-            db.Employee.Remove(DeleteObject);
+            var DeletedObject = db.Employee.Find(id);
+            db.Employee.Remove(DeletedObject);
             db.SaveChanges();
         }
 
 
-        //Refeactorings
-        //private IQueryable<EmployeeVM> GetAllEmps()
-        //{
-        //    return db.Employee
-        //        .Select(a => new EmployeeVM{ Id = a.Id, Name=a.Name, Salary=a.Salary, Address=a.Address, Email=a.Email, HirDate=a.HirDate, IsActive=a.IsActive, Notes=a.Notes, DepartmentId = a.Department.DepartmentName ,DistrictId=a.District.DistrictName });
-        //}
-        //private EmployeeVM GetEmployeeById(int id)
-        //{
-        //    return db.Employee.Where(a => a.Id == id)
-        //          .Select(a => new EmployeeVM{ Id = a.Id, Name = a.Name, Salary = a.Salary, Address = a.Address, Email = a.Email, HirDate = a.HirDate, IsActive = a.IsActive, Notes = a.Notes, DepartmentId = a.Department.DepartmentName, DistrictId = a.District.DistrictName })
-        //          .FirstOrDefault();
-        //}
 
-
+        // Refactor
         private EmployeeVM GetEmployeeByID(int id)
         {
             return db.Employee.Where(a => a.Id == id)
-                                    .Select(a => new EmployeeVM { Id = a.Id, Name = a.Name, Salary = a.Salary, Address = a.Address, HirDate = a.HirDate, IsActive = a.IsActive, Email = a.Email, Notes = a.Notes, DepartmentId = a.Department.DepartmentName, DistrictId = a.District.DistrictName })
+                                    .Select(a => new EmployeeVM { Id = a.Id, Name = a.Name, Salary = a.Salary, Address = a.Address, HireDate = a.HirDate, IsActive = a.IsActive, Email = a.Email, Notes = a.Notes, DepartmentName = a.Department.DepartmentName, DistrictName = a.District.DistrictName, DepartmentId = a.DepartmentId, DistrictId = a.DistrictId })
                                     .FirstOrDefault();
         }
 
         private IQueryable<EmployeeVM> GetAllEmps()
         {
             return db.Employee
-                       .Select(a => new EmployeeVM { Id = a.Id, Name = a.Name, Salary = a.Salary, Address = a.Address, HirDate = a.HirDate, IsActive = a.IsActive, Email = a.Email, Notes = a.Notes, DepartmentId = a.Department.DepartmentName, DistrictId = a.District.DistrictName });
+                       .Select(a => new EmployeeVM { Id = a.Id, Name = a.Name, Salary = a.Salary, Address = a.Address, HireDate = a.HirDate, IsActive = a.IsActive, Email = a.Email, Notes = a.Notes, DepartmentName = a.Department.DepartmentName, DistrictName = a.District.DistrictName, DepartmentId = a.DepartmentId, DistrictId = a.DistrictId });
         }
     }
 }

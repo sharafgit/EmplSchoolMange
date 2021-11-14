@@ -1,15 +1,14 @@
 ﻿@model EmplSchoolMange.Models.EmployeeVM
-
 @{
-    ViewBag.Title = "Employee Delete";
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Layout/MainLayout.cshtml";
 }
+
 
 <a asp-controller="Employee" asp-action="Index" class="btn btn-primary">Back To Employees</a>
 
 
-<h2>Delete Employee</h2>
-
-
+<h2>Employee Details</h2>
 
 <form asp-controller="Employee" asp-action="Delete" method="post" class="form-group">
 
@@ -52,13 +51,5 @@
     </div>
 
     <br />
-    <center>
-        <input type="submit" value="Delete" class="btn btn-primary" />
-    </center>
 
 </form>
-
-<script src="~/jquery/jquery.min.js"></script>
-<script src="~/jquery-validate/jquery.validate.js"></script>
-<script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
