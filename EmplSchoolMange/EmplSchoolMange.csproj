@@ -23,4 +23,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Bills\Controllers\" />
+    <Folder Include="Areas\Bills\Views\" />
+  </ItemGroup>
+
 </Project>

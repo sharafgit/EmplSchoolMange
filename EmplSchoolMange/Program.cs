@@ -11,6 +11,7 @@ namespace EmplSchoolMange
 {
     public class Program
     {
+        //Start Point Of Your Application
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
