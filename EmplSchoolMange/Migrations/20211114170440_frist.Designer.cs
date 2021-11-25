@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmplSchoolMange.Migrations
 {
     [DbContext(typeof(DbContainer))]
-    [Migration("20211105133855_m3")]
-    partial class m3
+    [Migration("20211114170440_frist")]
+    partial class frist
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,13 +108,13 @@ namespace EmplSchoolMange.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CvName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<int>("DistrictId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DistrictIdd")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -133,6 +133,9 @@ namespace EmplSchoolMange.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhotoName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<float>("Salary")
                         .HasColumnType("real");
 
@@ -140,7 +143,7 @@ namespace EmplSchoolMange.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("DistrictIdd");
+                    b.HasIndex("DistrictId");
 
                     b.ToTable("Employee");
                 });
@@ -177,7 +180,9 @@ namespace EmplSchoolMange.Migrations
 
                     b.HasOne("EmplSchoolMange.DAL.Entities.District", "District")
                         .WithMany("Employee")
-                        .HasForeignKey("DistrictIdd");
+                        .HasForeignKey("DistrictId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Department");
 

@@ -49,6 +49,7 @@ namespace EmplSchoolMange.BL.Repository
             //Mapping
             var data = mapper.Map<Department>(dpt);
 
+
             db.Department.Add(data);
             db.SaveChanges();
         }

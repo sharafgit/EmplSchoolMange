@@ -64,6 +64,9 @@
                                     <th class="text-center">@SharedLocalizer["Name"]</th>
                                     <th class="text-center">@SharedLocalizer["Salary"]</th>
                                     <th class="text-center">@SharedLocalizer["Department"]</th>
+                                    <th class="text-center">Photo</th>
+                                    <th class="text-center">CV</th>
+
                                     <th class="text-center">@SharedLocalizer["Edit"]</th>
                                     <th class="text-center">@SharedLocalizer["Delete"]</th>
                                     <th class="text-center">Details</th>
@@ -78,6 +81,13 @@
                                         <td>@item.Name</td>
                                         <td>@item.Salary</td>
                                         <td>@item.DepartmentName</td>
+                                        <td>
+                                            <img  src="~/Files/Photos/@item.PhotoName" width="30" height="30"/>
+                                        </td>
+                                        <td>
+                                        <a href="~/Files/Doc/@item.CvName">Dowenload</a>
+                                        </td>
+
 
                                         <td><a asp-controller="Employee" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">@SharedLocalizer["Edit"]</a></td>
                                         <td><a asp-controller="Employee" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">@SharedLocalizer["Delete"]</a></td>

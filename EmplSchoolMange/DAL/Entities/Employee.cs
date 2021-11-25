@@ -23,11 +23,13 @@ namespace EmplSchoolMange.DAL.Entities
         // ForeignKey      
         public int DepartmentId { get; set; }
         public int DistrictId { get; set; }
+        public string PhotoName { get; set; }
+        public string CvName { get; set; }
 
         [ForeignKey("DepartmentId")]
         public Department Department { get; set; }
 
-        [ForeignKey("DistrictIdd")]
+        [ForeignKey("DistrictId")]
         public District District { get; set; }
 
 

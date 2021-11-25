@@ -26,6 +26,8 @@
   <ItemGroup>
     <Folder Include="Areas\Bills\Controllers\" />
     <Folder Include="Areas\Bills\Views\" />
+    <Folder Include="wwwroot\Files\Doc\" />
+    <Folder Include="wwwroot\Files\Photos\" />
   </ItemGroup>
 
 </Project>

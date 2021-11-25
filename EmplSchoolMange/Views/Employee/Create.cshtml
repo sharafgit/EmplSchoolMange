@@ -10,7 +10,7 @@
 <h2>Create Employee</h2>
 
 
-<form asp-controller="Employee" asp-action="Create" method="post" class="form-group">
+<form asp-controller="Employee" asp-action="Create" method="post" enctype="multipart/form-data" class="form-group">
 
     <label asp-for="Name">Employee Name</label>
     <input type="text" asp-for="Name" class="form-control" />
@@ -81,6 +81,16 @@
         <label class="custom-control-label" asp-for="IsActive"> Is Active</label>
     </div>
     <span class="text-danger" asp-validation-for="IsActive"></span>
+    <br /><br />
+    @* Asp.Net 4.8 HttpPostedFile *@
+    <label asp-for="PhotoUrl">UploadPhoto</label>
+    <input type="file" asp-for="PhotoUrl" class="form-control" />
+    <br /><br />
+
+    <label asp-for="CvUrl">UploadPhoto</label>
+    <input type="file" asp-for="CvUrl" class="form-control" />
+    <br /><br />
+
 
     <br />
     <center>

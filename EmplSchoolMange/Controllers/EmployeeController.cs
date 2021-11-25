@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using EmplSchoolMange.BL.Interface;
 using EmplSchoolMange.Models;
 using EmplSchoolMange.Resource;
+using System.IO;
 
 namespace EmplSchoolMange.Controllers
 {
@@ -48,6 +49,7 @@ namespace EmplSchoolMange.Controllers
             var data = employee.GetById(id);
             var Dptdata = department.Get();
             var countrydata = country.Get();
+
             //SelectList ينفع نحط فيه فاليو تيكست  using Microsoft.AspNetCore.Mvc.Rendering;
 
             ViewBag.DepartmentList = new SelectList(Dptdata, "Id", "DepartmentName", data.DepartmentId);

@@ -16,6 +16,13 @@
     <input type="text" asp-for="Name" disabled class="form-control" />
     <br /><br />
 
+    <img src="~/Files/Photos/@Model.PhotoName" width="30" height="30" />
+    <br /><br />
+    <h3>
+        <a href="~/Files/Doc/@Model.CvName">DownLoad CV</a>
+    </h3>
+    <br /><br />
+
     <label asp-for="Salary">Employee Salary</label>
     <input type="text" asp-for="Salary" disabled class="form-control" />
     <br /><br />
